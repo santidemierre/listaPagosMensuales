@@ -68,6 +68,17 @@ class App extends Component {
     localStorage.setItem('payments', JSON.stringify(updatedPayments));
   }
 
+  handlePaymentDelete(id) {
+    const { payments } = this.state;
+    const updatedPayments = payments.filter((payment) => payment.id !== id);
+
+    this.setState({
+      payments: updatedPayments,
+    });
+
+    localStorage.setItem('payments', JSON.stringify(updatedPayments));
+  }
+
   render() {
     const { payments, newPaymentDescription, newPaymentAmount } = this.state;
 
@@ -75,7 +86,7 @@ class App extends Component {
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-stone-800 text-center mb-10">Lista de Pagos Realizados</h1>
         {payments.map((payment) => (
-          <div key={payment.id} className="flex items-center mt-4">
+          <div key={payment.id} className="flex items-center mt-4" onClick={() => this.handlePaymentDelete(payment.id)}>
             <input
               type="checkbox"
               className="mr-2"
@@ -120,4 +131,4 @@ class App extends Component {
     );
   }
 }
-export default App;         
+export default App;
